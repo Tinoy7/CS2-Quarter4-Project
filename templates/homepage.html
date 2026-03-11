@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homepage</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <div class="page-wrap">
+
+    <div class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-title">Sales Tracker</span>
+        <span class="topbar-user">{{ session['username'] }}</span>
+      </div>
+      <a href="/logout" class="btn btn-danger btn-sm">Log Out</a>
+    </div>
+
+  {% if session.get('username') == "me9511" %}
+  <a href="/users" class="btn btn-sm">View Users</a>
+{% endif %}
+
+    <!-- Add Sale -->
+    <div class="section-label">Record a Sale</div>
+    <div class="panel-box">
+      <form action="/add_sale" method="POST">
+        <div class="sale-row">
+          <div class="field">
+            <label>Description</label>
+            <input type="text" name="description" placeholder="what was sold" required>
+          </div>
+          <div class="field">
+            <label>Category</label>
+            <select name="category">
+              {% for cat in categories %}
+                <option value="{{ cat }}">{{ cat }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="field">
+            <label>Price</label>
+            <input type="text" name="price" placeholder="0.00" required>
+          </div>
+          <div class="field">
+            <label style="opacity:0;">_</label>
+            <button type="submit" class="btn btn-primary btn-sm">Add</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Sales Table -->
+    <div class="section-label">Records</div>
+    <div class="panel-box">
+      {% if sales %}
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>By</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for sale in sales %}
+            <tr>
+              <td class="td-dim">{{ sale.id }}</td>
+              <td>{{ sale.description }}</td>
+              <td>{{ sale.category }}</td>
+              <td class="td-gold">{{ sale.price }}</td>
+              <td class="td-dim">{{ sale.user }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p class="empty-note">No records yet.</p>
+      {% endif %}
+    </div>
+
+  </div>
+
+</body>
+</html>

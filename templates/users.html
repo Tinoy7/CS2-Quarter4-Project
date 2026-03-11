@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Users</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <p class="page-title">Sales Tracker &nbsp;<span>·</span>&nbsp; Users</p>
+
+  <div class="page-wrap">
+    <div class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-title">Sales Tracker</span>
+        <span class="topbar-user">Admin</span>
+      </div>
+      <div style="display:flex; gap: 0.6rem;">
+        <a href="/homepage" class="btn btn-sm">Records</a>
+        <a href="/logout" class="btn btn-sm">Log Out</a>
+      </div>
+    </div>
+
+    <p class="section-label">All Users</p>
+    <div class="panel-box">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Age</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for username, info in users.items() %}
+          <tr>
+            <td class="td-dim">{{ loop.index }}</td>
+            <td class="td-gold">{{ username }}</td>
+            <td>{{ info.name }}</td>
+            <td>{{ info.address }}</td>
+            <td>{{ info.age }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+</html>

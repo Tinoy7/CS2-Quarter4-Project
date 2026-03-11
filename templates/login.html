@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <p class="page-title">Sales Tracker &nbsp;<span>·</span>&nbsp; Login</p>
+
+  <div class="form-wrap">
+    <div class="form-header">
+      <h1 class="form-heading">Welcome</h1>
+      <p class="form-sub">Sign in to continue</p>
+    </div>
+
+    <div class="form-panel">
+      {% if error %}
+        <div class="error">{{ error }}</div>
+      {% endif %}
+
+      <form method="POST" action="/login">
+        <div class="field">
+          <label>Username</label>
+          <input type="text" name="username" placeholder="your username" autocomplete="off" value="{{ form.username }}">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" name="password" placeholder="your password">
+        </div>
+
+        <div style="height: 1.2rem;"></div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+
+      <div class="divider"></div>
+      <a href="/register" class="btn btn-ghost">Don't have an account</a>
+    </div>
+  </div>
+
+</body>
+</html>
