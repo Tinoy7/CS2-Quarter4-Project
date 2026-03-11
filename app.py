@@ -23,16 +23,18 @@ data = {
             "description": "Bundle of Pancit Canton",
             "category": "C",
             "user": "Ralp",
-            "price": "200"
+            "price": "200"    
         }
     ]
 }
 
 app = Flask(__name__)
-app.secret_key = "me9511"
+app.secret_key = "tnriscaimk"
+
 
 saleCategories = ["A", "B", "C", "D"]
-# Categories are placeholders. I still don't know what to put here. I just want to have categories for the sales.
+#Categories are still place holders for now.
+
 @app.route("/users")
 def users():
     if "username" not in session or session["username"] != "me9511":
@@ -63,7 +65,7 @@ def register():
         elif username in data["users"]:
             error = "Username already taken."
         elif name == "" or address == "" or age == "":
-            error = "Fields cannot be empty."   
+            error = "All fields are required."
         elif not age.isdigit():
             error = "Age must be a number."
         else:
@@ -75,7 +77,7 @@ def register():
             }
             return redirect(url_for("login"))
 
-    return render_template("register.html", error=error)
+    return render_template("register.html", error=error, form=request.form)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -91,7 +93,7 @@ def login():
             session["username"] = username
             return redirect(url_for("homepage"))
 
-    return render_template("login.html", error=error)
+    return render_template("login.html", error=error, form=request.form)
 
 
 @app.route("/logout")
